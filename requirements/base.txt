@@ -1,0 +1,3 @@
+# Base project dependencies
+# Last updated: 06/08/25
+Django==5.1
