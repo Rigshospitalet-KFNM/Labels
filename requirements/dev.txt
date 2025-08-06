@@ -1,0 +1,5 @@
+# Debug & Testing
+# Last updated: 06/08/25
+
+pytest==8.4.1
+pytest-django==4.11.0
