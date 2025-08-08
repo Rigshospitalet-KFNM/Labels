@@ -3,3 +3,4 @@
 
 Django==5.1
 django-environ~=0.12.0
+#psycopg[binary]=3.2.9 #using sqlite for now

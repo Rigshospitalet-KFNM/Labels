@@ -24,8 +24,7 @@ Download the appropriate dependencies according to use case:
  pip install -r requirements/dev.txt
 ```
 <br />
-Ensure nescesary environment variables in a .env file, expected variables can be found in .env.dist
-
+Ensure nescesary environment variables in a .env file, expected variables can be found in .env.dist.
 
 <br />
 Apply database migrations, to initalize schema:
