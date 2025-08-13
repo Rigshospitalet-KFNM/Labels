@@ -1,4 +1,4 @@
-![Rigshospitalets logo](graphics/Logo_Rigshospitalet.png)
+![Rigshospitalets logo](config/core/static/core/graphics/Logo_Rigshospitalet.png)
 
 # Labels
 

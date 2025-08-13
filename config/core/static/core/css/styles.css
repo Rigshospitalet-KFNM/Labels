@@ -1,0 +1,44 @@
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 220px;
+    background: #003A70;
+    color: #00aeef;
+    padding: 20px;
+}
+
+.sidebar-logo img {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
