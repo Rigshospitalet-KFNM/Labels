@@ -20,5 +20,8 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.main_page, name='main_page')
+    path('', views.main_page, name='main_page'),
+    path("templates/", views.template_overview, name="template_overview"),
+    path("templates/new/", views.template_builder, name="template_new"),
+    path("templates/<int:template_id>/", views.template_builder, name="template_edit"),
 ]

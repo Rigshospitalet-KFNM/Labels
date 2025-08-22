@@ -16,6 +16,7 @@ class Element(models.Model):
         return self.code
     
 class LabelTemplate(models.Model):
+    name = models.CharField(max_length=100)
     def __str__(self) -> str:
         return super().__str__()
     

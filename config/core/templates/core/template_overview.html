@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Templates Overview{% endblock %}
+
+{% block content %}
+<h1>Label Templates</h1>
+
+<a href="{% url 'template_new' %}" class="btn">+ Create New Template</a>
+
+<ul>
+  {% for template in templates %}
+    <li>
+      <a href="{% url 'template_edit' template.id %}">
+        {{ template.name }}
+      </a>
+    </li>
+  {% empty %}
+    <li>No templates yet. <a href="{% url 'template_new' %}">Create one</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

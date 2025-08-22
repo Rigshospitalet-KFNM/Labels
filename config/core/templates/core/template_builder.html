@@ -1,0 +1,16 @@
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+{% extends "base.html" %}
+
+@csrf_exempt
+@login_required
+@user_passes_test(lambda u: u.is_staff)
+def save_template(request, template_id):
+    if request.method == "POST":
+        template = get_object_or_404(LabelTemplate, pk=template_id)
+        data = json.loads(request.POST.get("definition", "{}"))
+        template.definition = data
+        template.save()
+        return JsonResponse({"status": "ok"})
