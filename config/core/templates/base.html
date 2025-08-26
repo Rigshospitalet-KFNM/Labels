@@ -20,12 +20,22 @@
                 <img src="{% static 'core/graphics/Logo_Rigshospitalet.png' %}" alt="Logo">
             </div>
             <div class="verticalLine">
-                <nav>
+                <nav id="SidebarNav">
                     <ul id="navList">
                         <li><a href="{% url 'main_page' %}" >Dashboard</a></li>
                         <li><a href="{% url 'template_overview' %}">Templates</a></li>
                     </ul>
-                
+                    
+                    <hr>
+                    <div class="auth-links">
+                        {% if user.is_authenticated %}
+                            <p>Logged in as {{ user.username }}</p>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        {% else %}
+                            <p>Anonymous user</p>
+                            <a href="{% url 'login' %}">Login</a>
+                        {% endif %}
+                    </div>
                 </nav>
             </div>
         </aside>

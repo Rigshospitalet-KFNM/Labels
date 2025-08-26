@@ -36,7 +36,7 @@ html, body {
 .verticalLine::before{
   content: "";
   position: absolute;
-  background: linear-gradient(to bottom right, #009CE8, #ffffff);
+  background: linear-gradient(to bottom right, #009be8, #ffffff);
 }
 
 /* top border */
@@ -64,7 +64,23 @@ html, body {
     font-size: 20px;
 }
 
+#SidebarNav hr {
+    background-color: white;
+    border-color: white;
+}
+
+.auth-links a {
+    text-decoration: none;
+    color: white;
+}
+
 .main-content {
     flex: 1;
     padding: 20px;
+}
+
+#subtext {
+    margin-top: 0;
+    color: rgb(87, 87, 87);
+    font-size: 14px !important;
 }
