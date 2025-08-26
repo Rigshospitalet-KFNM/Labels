@@ -19,23 +19,49 @@ html, body {
 .sidebar-logo img {
     width: 100%;
     height: auto;
-    max-width: 150px;
+    max-width: 200px;
     display: block;
     margin: 0 auto 20px;
+    margin-top: 2em;
 }
 
-.sidebar nav ul {
+.verticalLine {
+  position: relative;
+  padding: .5em; /* just for demo */
+  background: rgba(0, 0, 0, 0);
+  margin-top: 1em;
+}
+
+
+.verticalLine::before{
+  content: "";
+  position: absolute;
+  background: linear-gradient(to bottom right, #009CE8, #ffffff);
+}
+
+/* top border */
+.verticalLine::before {
+  top: 0;
+  left: 0;
+  height: 4px;          /* thickness */
+  width: 100%;
+}
+
+
+#navList {
     list-style: none;
     padding: 0;
+    margin-top: 0.5em;
 }
 
-.sidebar nav ul li {
+#navList li {
     margin-bottom: 10px;
 }
 
-.sidebar nav ul li a {
+#navList li a {
     color: white;
     text-decoration: none;
+    font-size: 20px;
 }
 
 .main-content {

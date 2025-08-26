@@ -19,12 +19,15 @@
             <div class="sidebar-logo">
                 <img src="{% static 'core/graphics/Logo_Rigshospitalet.png' %}" alt="Logo">
             </div>
-            <nav>
-                <ul>
-                    <li><a href="{% url 'main_page' %}" >Dashboard</a></li>
-                    <li><a href="{% url 'template_overview' %}">Templates</a></li>
-                </ul>
-            </nav>
+            <div class="verticalLine">
+                <nav>
+                    <ul id="navList">
+                        <li><a href="{% url 'main_page' %}" >Dashboard</a></li>
+                        <li><a href="{% url 'template_overview' %}">Templates</a></li>
+                    </ul>
+                
+                </nav>
+            </div>
         </aside>
 
         <!-- Main content (changes per page) -->
