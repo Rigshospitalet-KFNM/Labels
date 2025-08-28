@@ -43,18 +43,18 @@
         </aside>
         <!-- Main content (changes per page) -->
         <main class="main-content">
-                <!-- messages -->
-                {% if messages %}
-                  <div id="message-container">
-                    {% for message in messages %}
-                      <div class="message {{ message.tags }}">
-                        {{ message }}
-                      </div>
-                    {% endfor %}
-                  </div>
-                {% endif %}
-
             {% block content %}{% endblock %}
+
+            <!-- messages -->
+            {% if messages %}
+              <div id="message-container">
+                {% for message in messages %}
+                  <div class="message {{ message.tags }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
         </main>
     </div>
     
