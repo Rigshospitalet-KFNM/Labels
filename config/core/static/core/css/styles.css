@@ -1,14 +1,20 @@
+/* Reset / Base */
+html, body {
+    margin: 0;
+    padding: 0;
+}
 
 .layout {
     display: flex;
     min-height: 100vh;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
+.main-content {
+    flex: 1;
+    padding: 20px;
 }
 
+/* Sidebar */
 .sidebar {
     width: 220px;
     background: #002555;
@@ -17,37 +23,32 @@ html, body {
 }
 
 .sidebar-logo img {
+    display: block;
+    margin: 2em auto 20px;
+    max-width: 200px;
     width: 100%;
     height: auto;
-    max-width: 200px;
-    display: block;
-    margin: 0 auto 20px;
-    margin-top: 2em;
 }
 
+/* Decorative Line */
 .verticalLine {
-  position: relative;
-  padding: .5em; /* just for demo */
-  background: rgba(0, 0, 0, 0);
-  margin-top: 1em;
+    position: relative;
+    padding: 0.5em;
+    background: transparent;
+    margin-top: 1em;
 }
 
-
-.verticalLine::before{
-  content: "";
-  position: absolute;
-  background: linear-gradient(to bottom right, #009be8, #ffffff);
-}
-
-/* top border */
 .verticalLine::before {
-  top: 0;
-  left: 0;
-  height: 4px;          /* thickness */
-  width: 100%;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px; /* thickness */
+    width: 100%;
+    background: linear-gradient(to bottom right, #009be8, #ffffff);
 }
 
-
+/* Navigation */
 #navList {
     list-style: none;
     padding: 0;
@@ -58,46 +59,49 @@ html, body {
     margin-bottom: 10px;
 }
 
-#navList li a {
+#navList li a,
+.auth-links a,
+.logout-form .logout-link {
     color: white;
     text-decoration: none;
-    display: inline-block;          
+    display: inline-block;
     font-size: 1.5rem;
     transform-origin: left center;
     transition: transform 0.3s ease-out, color 0.1s ease-out;
 }
 
+/* Special font size for auth links */
+.auth-links a,
+.logout-form .logout-link {
+    font-size: 1rem;
+}
+
+/* Hover effects */
+#navList li a:hover,
+.auth-links a:hover,
+.logout-form .logout-link:hover {
+    transform: scale(1.05);
+    color: #ddd;
+    border-bottom: 0.25rem solid #001b3d;
+}
+
+#navList li a:hover {
+    border-bottom-width: 0.45rem;
+}
+
+/* Sidebar divider */
 #SidebarNav hr {
     background-color: white;
     border-color: white;
 }
 
+/* Bottom-aligned sidebar content */
 #bottomDiv {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
 }
 
-.main-content {
-    flex: 1;
-    padding: 20px;
-}
-
-#subtext {
-    margin-top: 0;
-    color: rgb(87, 87, 87);
-    font-size: 14px !important;
-}
-
-.auth-links a {
-    text-decoration: none;
-    display: inline-block; 
-    font-size: 1rem;
-    color: white;
-    transform-origin: left center;
-    transition: transform 0.1s ease-out, color 0.1s ease-out;
-}
-
-/* Logout form */
+/* Logout form reset */
 .logout-form {
     margin: 0;
     padding: 0;
@@ -106,29 +110,22 @@ html, body {
 .logout-form .logout-link {
     background: none;
     border: none;
-    color: white;
     cursor: pointer;
-    font: inherit;         
+    font: inherit;
     text-align: left;
     padding: 0;
-    display: block;          
     width: 100%;
-    transform-origin: left center;
-    transition: transform 0.1s ease-out, color 0.1s ease-out;
+    display: block;
 }
 
-#navList li a:hover,
-.auth-links a:hover,
-.logout-form .logout-link:hover {
-    transform: scale(1.05);
-    color: #ddd; 
-    border-bottom: 0.25rem solid #001b3d;
-}
-#navList li a:hover{
-    border-bottom: 0.45rem solid #001b3d;
+/* Subtext */
+#subtext {
+    margin-top: 0;
+    color: #575757;
+    font-size: 14px !important;
 }
 
-/* messages */
+/* Django messages */
 .message {
     padding: 10px;
     margin-bottom: 10px;
@@ -155,4 +152,3 @@ html, body {
     background-color: #fff3cd;
     color: #856404;
 }
-
