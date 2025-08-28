@@ -64,6 +64,7 @@ html, body {
     display: inline-block;          
     font-size: 1.5rem;
     transform-origin: left center;
+    transition: transform 0.3s ease-out, color 0.1s ease-out;
 }
 
 #SidebarNav hr {
@@ -93,6 +94,7 @@ html, body {
     font-size: 1rem;
     color: white;
     transform-origin: left center;
+    transition: transform 0.1s ease-out, color 0.1s ease-out;
 }
 
 /* Logout form */
@@ -112,6 +114,7 @@ html, body {
     display: block;          
     width: 100%;
     transform-origin: left center;
+    transition: transform 0.1s ease-out, color 0.1s ease-out;
 }
 
 #navList li a:hover,
