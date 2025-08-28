@@ -25,6 +25,6 @@ urlpatterns = [
     path("templates/", views.template_overview, name="template_overview"),
     path("templates/new/", views.template_builder, name="template_new"),
     path("templates/<int:template_id>/", views.template_builder, name="template_edit"),
-    path("login/", views.LoginView.as_view(template_name="registration/login.html"), name="login"), #type: ignore
-    path("logout/", views.LogoutView.as_view(next_page="/"), name="logout"), #type:ignore
+    path("login/", views.MyLoginView.as_view(template_name="registration/login.html"), name="login"), #type: ignore
+    path("logout/", views.MyLogoutView.as_view(next_page="/"), name="logout"), #type:ignore
 ]

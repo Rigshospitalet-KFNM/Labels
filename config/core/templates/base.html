@@ -40,10 +40,12 @@
                         {% endif %}
                     </div>
                 </nav>
-            </div>
-            <div id="bottomDiv">
+        </aside>
+        <!-- Main content (changes per page) -->
+        <main class="main-content">
+                <!-- messages -->
                 {% if messages %}
-                  <div class="messages">
+                  <div id="message-container">
                     {% for message in messages %}
                       <div class="message {{ message.tags }}">
                         {{ message }}
@@ -51,13 +53,25 @@
                     {% endfor %}
                   </div>
                 {% endif %}
-            </div>
-        </aside>
 
-        <!-- Main content (changes per page) -->
-        <main class="main-content">
             {% block content %}{% endblock %}
         </main>
     </div>
+    
+    {% block javascript %}
+    <script>
+      // Auto-hide messages after 3 seconds
+      setTimeout(() => {
+        const container = document.getElementById("message-container");
+        if (container) {
+          container.style.transition = "opacity 0.5s ease";
+          container.style.opacity = "0";
+          setTimeout(() => container.remove(), 500);
+        }
+      }, 3000);
+    </script>
+    {% endblock %}
 </body>
 </html>
+
+

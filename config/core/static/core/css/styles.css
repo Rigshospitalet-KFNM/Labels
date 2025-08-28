@@ -127,3 +127,32 @@ html, body {
 #navList li a:hover{
     border-bottom: 0.45rem solid #001b3d;
 }
+
+/* messages */
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.message.info {
+    background-color: #d1ecf1;
+    color: #009be8;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
