@@ -7,6 +7,11 @@ admin.site.register(Signatory)
 
 admin.site.register(Element)
 
+#admin.site config
+admin.site.site_header = "Rigshospitalet Labels Admin"
+admin.site.site_title = "Labels Admin Portal"
+admin.site.index_title = "Labels"
+
 @admin.register(LabelTemplate)
 class templateAdmin(admin.ModelAdmin):
     list_display = ()
@@ -21,3 +26,5 @@ class templateAdmin(admin.ModelAdmin):
     #only allow delete from admin page
     def has_delete_permission(self, request, obj=None):
         return True
+
+    
