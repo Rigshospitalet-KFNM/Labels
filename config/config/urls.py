@@ -27,4 +27,8 @@ urlpatterns = [
     path("templates/<int:template_id>/", views.template_builder, name="template_edit"),
     path("login/", views.MyLoginView.as_view(template_name="registration/login.html"), name="login"), #type: ignore
     path("logout/", views.MyLogoutView.as_view(next_page="/"), name="logout"), #type:ignore
+    path("signatories/", views.SignatoryListView.as_view(), name="signatory_list"),
+    path("signatories/add/", views.SignatoryCreateView.as_view(), name="signatory_add"),
+    path("signatories/<int:pk>/edit/", views.SignatoryUpdateView.as_view(), name="signatory_edit"),
+    path("signatories/<int:pk>/delete/", views.SignatoryDeleteView.as_view(), name="signatory_delete"),
 ]
