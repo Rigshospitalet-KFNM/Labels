@@ -30,6 +30,10 @@ html, body {
     height: auto;
 }
 
+.spacer-big{ height: 4rem;}
+.spacer{ height: 2rem;}
+.spacer-small{ height: 1rem;}
+
 /* Decorative Line */
 .verticalLine {
     position: relative;
@@ -123,6 +127,88 @@ html, body {
     margin-top: 0;
     color: #575757;
     font-size: 14px !important;
+}
+
+/* CRUD formatting */
+.listDiv {
+  background-color: #cfcfcf;
+  padding: 0;             
+  width: fit-content;
+  border-radius: 10px; 
+  min-width: 30em;
+  overflow: hidden;       
+}
+
+.listDiv ul {
+  margin: 0;
+  padding: 0; 
+  list-style: none;
+}
+
+/* Header row */
+.listDiv .list-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  background: #b5b5b5;
+  padding: 0.5em;
+}
+
+/* Regular rows */
+.listDiv li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+  border-bottom: 3px solid #ddd;
+}
+
+.listDiv li:last-child {
+  border-bottom: none;
+}
+
+/* Generic column widths */
+.listDiv .col-1 { flex: 2; }
+.listDiv .col-2 { flex: 1; } 
+.listDiv .col-3 { flex: 1; } 
+
+/* Actions always aligned right */
+.listDiv .actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+}
+
+/* button styling */
+
+a.button {
+  display: inline-block;     
+  padding: 0.3em 0.5em;        
+  border-radius: 8px;          
+  text-decoration: none;       
+  font-weight: 300;            
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+a.button-primary {
+  background: #009be8;   
+  color: white;
+}
+a.button-primary:hover {
+  background: #0087ca;
+}
+
+a.button-secondary {
+  background: #6c757d;   
+  color: white;
+}
+a.button-secondary:hover {
+  background: #545b62;
+}
+
+a.button:active {
+  transform: scale(0.97);      
 }
 
 /* Django messages */

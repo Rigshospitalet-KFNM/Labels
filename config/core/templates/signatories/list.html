@@ -2,19 +2,29 @@
 
 {% block content %}
   <h1>Signatories</h1>
-  <ul>
-    {% for signatory in signatories %}
-      <li>
-        {{ signatory.name }} — {{ signatory.role }}
-        {% if user.is_authenticated %}
-          <a href="{% url 'signatory_edit' signatory.pk %}">Edit</a> |
-          <a href="{% url 'signatory_delete' signatory.pk %}">Delete</a>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-
+  <div class="listDiv">
+    <div class="list-header">
+      <span class="col-1">Name</span>
+      <span class="col-2">Initials</span>
+      <span class="actions">Actions</span>
+    </div>
+    <ul>
+      {% for signatory in signatories %}
+        <li>
+          <span class="col-1">{{ signatory.name }}</span>
+          <span class="col-2">{{ signatory.initials }}</span>
+          {% if user.is_authenticated %}
+            <span class="actions">
+              <a href="{% url 'signatory_edit' signatory.pk %}" class="button button-secondary">Edit</a>
+              <a href="{% url 'signatory_delete' signatory.pk %}" class="button button-secondary">Delete</a>
+            </span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="spacer-small"></div>
   {% if user.is_authenticated %}
-    <a href="{% url 'signatory_add' %}">Add New Signatory</a>
+    <a href="{% url 'signatory_add' %}" class="button button-primary">Add New Signatory</a>
   {% endif %}
 {% endblock %}
