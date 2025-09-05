@@ -2,7 +2,10 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
-from .models import LabelTemplate, Signatory
+
+from .mixins import SearchAndSortMixin
+from .models import LabelTemplate, Signatory, Element
+from django.db.models.functions import Length
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
@@ -33,11 +36,16 @@ def template_builder(request, template_id=None):
     template = get_object_or_404(LabelTemplate, pk=template_id) if template_id else None
     return render(request, "core/template_builder.html", {"templaet": template})
 
+
+# ---CRUD VIEWS---
 #Signatories---
-class SignatoryListView(ListView):
+class SignatoryListView(SearchAndSortMixin, ListView):
     model = Signatory
     template_name = "signatories/list.html"
     context_object_name = "signatories"
+    search_fields = ["name", "initials"]
+    sort_fields = ["name", "initials"]
+    default_sort = "name"
 
 class SignatoryCreateView(CreateView):
     model = Signatory
