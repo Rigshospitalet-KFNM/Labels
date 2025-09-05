@@ -4,7 +4,7 @@
   <h1>Delete {{ object.name }}?</h1>
   <form method="post">
     {% csrf_token %}
-    <button type="submit">Confirm</button>
-    <a href="{% url 'signatory_list' %}">Cancel</a>
+    <button type="submit" class="button button-primary">Confirm</button>
+    <a href="{% url 'signatory_list' %}" class="button button-secondary">Cancel</a>
   </form>
 {% endblock %}
