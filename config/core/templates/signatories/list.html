@@ -1,26 +1,22 @@
 {% extends "base.html" %}
+{% load sort_helpers %}
 
 {% block content %}
   <h1>Signatories</h1>
 
-  <!-- Search + Sort -->
+  <!-- Search -->
   <form method="get" class="search-sort-form">
     <input type="text" name="q" placeholder="Search..."
            value="{{ request.GET.q|default:'' }}">
-
-    <select name="sort">
-      <option selected="true" disabled>-- Sort by --</option >
-      <option value="name" {% if request.GET.sort == "name" %}selected{% endif %}>Name</option>
-      <option value="initials" {% if request.GET.sort == "initials" %}selected{% endif %}>Initials</option>
-    </select>
-
     <button type="submit">Apply</button>
   </form>
 
+  <div class="spacer-small"></div>
+
   <div class="listDiv">
     <div class="list-header">
-      <span class="col-1">Name</span>
-      <span class="col-2">Initials</span>
+      <span class="col-1">{% sort_link "name" "Name" %}</span>
+      <span class="col-2">{% sort_link "initials" "Initials" %}</span>
       <span class="actions">Actions</span>
     </div>
     <ul>

@@ -63,3 +63,31 @@ class SignatoryDeleteView(DeleteView):
     model = Signatory
     template_name = "signatories/confirm_delete.html"
     success_url = reverse_lazy("signatory_list")
+
+
+#Elements---
+class ElementListView(SearchAndSortMixin, ListView):
+    model = Element
+    template_name = "elements/list.html"
+    context_object_name = "elements"
+    search_fields = ["name", "symbol"]
+    sort_fields = ["name", "symbol"]
+    default_sort = "name"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        symbol_len = self.request.GET.get("symbol_len")
+
+        radioactive = self.request.GET.get("radioactive")
+        if radioactive == "yes":
+            queryset = queryset.filter(radioactive=True)
+        elif radioactive == "no":
+            queryset = queryset.filter(radioactive=False)
+
+        symbol_len = self.request.GET.get("symbol_len")
+        if symbol_len == "2":
+            queryset = queryset.annotate(symbol_length=Length("symbol")).filter(symbol_length=2)
+        elif symbol_len == "3plus":
+            queryset = queryset.annotate(symbol_length=Length("symbol")).filter(symbol_length__gte=3)
+
+        return queryset

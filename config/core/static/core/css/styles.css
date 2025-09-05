@@ -154,6 +154,19 @@ html, body {
   padding: 0.5em;
 }
 
+.list-header a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.list-header a:hover {
+    color: #3a3a3a;
+    transform: scale(1.05);
+}
+
+
 /* Regular rows */
 .listDiv li {
   display: flex;
