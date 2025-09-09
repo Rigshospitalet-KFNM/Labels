@@ -17,7 +17,9 @@
     <div class="list-header">
       <span class="col-1">{% sort_link "name" "Name" %}</span>
       <span class="col-2">{% sort_link "initials" "Initials" %}</span>
-      <span class="actions">Actions</span>
+      {% if user.is_authenticated %}
+          <span class="actions">Actions</span>
+      {% endif %}
     </div>
     <ul>
       {% for signatory in signatories %}

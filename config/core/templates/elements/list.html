@@ -38,7 +38,9 @@
     <div class="list-header">
       <span class="col-1">{% sort_link "symbol" "symbol" %}</span>
       <span class="col-1">{{ "Radioactive?" }}</span>
-      <span class="actions">Actions</span>
+      {% if user.is_authenticated %}
+          <span class="actions">Actions</span>
+      {% endif %}
     </div>
     <ul>
       {% for element in elements %}
