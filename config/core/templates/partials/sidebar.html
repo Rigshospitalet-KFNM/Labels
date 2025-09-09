@@ -11,6 +11,9 @@
                         <li><a href="{% url 'template_overview' %}">Templates</a></li>
                         <li><a href="{% url 'signatory_list' %}">Signatories</a></li>
                         <li><a href="{% url 'element_list' %}">Elements</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'user_list' %}">Users</a></li>
+                        {% endif %}
                     </ul>
                     
                     <hr>
@@ -24,6 +27,11 @@
                         {% else %}
                             <p>Anonymous user</p>
                             <a href="{% url 'login' %}">Login</a>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            {% if request.user == user %}
+                              <a href="{% url 'user_password_change' %}" class="logout-link">Change Password</a>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </nav>

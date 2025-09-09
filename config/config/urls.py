@@ -27,6 +27,7 @@ urlpatterns = [
     path("templates/<int:template_id>/", views.template_builder, name="template_edit"),
     path("login/", views.MyLoginView.as_view(template_name="registration/login.html"), name="login"), #type: ignore
     path("logout/", views.MyLogoutView.as_view(next_page="/"), name="logout"), #type:ignore
+    path("users/<int:pk>/password/", views.UserPasswordChangeView.as_view(), name="user_password_change"),
     #CRUD urls
     path("signatories/", views.SignatoryListView.as_view(), name="signatory_list"),
     path("signatories/add/", views.SignatoryCreateView.as_view(), name="signatory_add"),
@@ -36,4 +37,9 @@ urlpatterns = [
     path("elements/add/", views.ElementCreateView.as_view(), name="element_add"),
     path("elements/<int:pk>/edit/", views.ElementUpdateView.as_view(), name="element_edit"),
     path("elements/<int:pk>/delete/", views.ElementDeleteView.as_view(), name="element_delete"),
+    path("users/", views.UserListView.as_view(), name="user_list"),
+    path("users/add/", views.UserCreateView.as_view(), name="user_add"),
+    path("users/<int:pk>/edit/", views.UserUpdateView.as_view(), name="user_edit"),
+    path("users/<int:pk>/delete/", views.UserDeleteView.as_view(), name="user_delete"),
+    path("users/password/", views.UserPasswordChangeView.as_view(), name="user_password_change"),
 ]

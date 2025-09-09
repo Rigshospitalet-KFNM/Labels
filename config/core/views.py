@@ -4,6 +4,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 
 from .mixins import SearchAndSortMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.views import PasswordChangeView
 from .models import LabelTemplate, Signatory, Element
 from django.db.models.functions import Length
 from django.urls import reverse_lazy
@@ -76,6 +79,14 @@ class SignatoryDeleteView(DeleteView):
         obj = self.get_object()
         messages.success(self.request, f"Signatory '{obj.name}' deleted successfully 🗑️") # type: ignore
         return super().form_valid(form) # type: ignore
+    
+class UserPasswordChangeView(PasswordChangeView):
+    template_name = "users/change_password.html"
+    success_url = reverse_lazy("user_list")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Password changed successfully.")
+        return super().form_valid(form)
 
 
 
@@ -135,4 +146,47 @@ class ElementDeleteView(DeleteView):
     def form_valid(self, form):
         obj = self.get_object()
         messages.success(self.request, f"Element '{obj.symbol}' deleted successfully 🗑️") # type: ignore
+        return super().form_valid(form) # type: ignore
+
+#Users---
+User = get_user_model()
+class UserListView(LoginRequiredMixin, ListView):
+    model = User
+    template_name = "users/list.html"
+    context_object_name = "users"
+
+
+class UserCreateView(LoginRequiredMixin, CreateView):
+    model = User
+    fields = ["username", "password"]
+    template_name = "users/form.html"
+    success_url = reverse_lazy("user_list")
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        # Only reset password if given
+        if form.cleaned_data.get("password"):
+            user.set_password(form.cleaned_data["password"])
+        user.save()
+        messages.success(self.request, "User created successfully ✅")
+        return super().form_valid(form)
+
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    fields = ["username"]   # no password field here
+    template_name = "users/form.html"
+    success_url = reverse_lazy("user_list")
+
+    def get_queryset(self):
+        # Only allow editing *your own* account
+        return User.objects.filter(pk=self.request.user.pk)
+
+class UserDeleteView(LoginRequiredMixin, DeleteView):
+    model = User
+    template_name = "users/confirm_delete.html"
+    success_url = reverse_lazy("user_list")
+
+    def form_valid(self, form):
+        messages.success(self.request, "User deleted successfully 🗑️")
         return super().form_valid(form) # type: ignore

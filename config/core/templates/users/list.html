@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load sort_helpers %}
+
+{% block content %}
+  <h1>Signatories</h1>
+
+  <!-- Search -->
+  <form method="get" class="search-sort-form">
+    <input type="text" name="q" placeholder="Search..."
+           value="{{ request.GET.q|default:'' }}">
+    <button type="submit" class="button button-primary">Apply</button>
+  </form>
+
+  <div class="spacer-small"></div>
+
+  <div class="listDiv">
+    <div class="list-header">
+      <span class="col-1">{% sort_link "username" "Username" %}</span>
+      {% if user.is_authenticated %}
+          <span class="actions">Actions</span>
+      {% endif %}
+    </div>
+    <ul>
+      {% for user in users %}
+        <li>
+          <span class="col-1">{{ user.username }}</span>
+          {% if user.is_authenticated %}
+            <span class="actions">
+              {% if request.user == user %}
+                <a href="{% url 'user_edit' user.pk %}" class="button button-secondary">Edit</a>
+              {% endif %}
+              <a href="{% url 'user_delete' user.pk %}" class="button button-secondary">Delete</a>
+            </span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="spacer-small"></div>
+  {% if user.is_authenticated %}
+    <a href="{% url 'user_add' %}" class="button button-primary">Add New User</a>
+  {% endif %}
+{% endblock %}
