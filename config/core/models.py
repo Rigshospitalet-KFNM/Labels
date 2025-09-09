@@ -9,11 +9,11 @@ class Signatory(models.Model):
         return self.name
     
 class Element(models.Model):
-    code = models.CharField(max_length=50)
+    symbol = models.CharField(max_length=50)
     radioactive = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.code
+        return self.symbol
     
 class LabelTemplate(models.Model):
     name = models.CharField(max_length=100)

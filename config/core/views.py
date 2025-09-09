@@ -70,9 +70,9 @@ class ElementListView(SearchAndSortMixin, ListView):
     model = Element
     template_name = "elements/list.html"
     context_object_name = "elements"
-    search_fields = ["name", "symbol"]
-    sort_fields = ["name", "symbol"]
-    default_sort = "name"
+    search_fields = ["symbol"]
+    sort_fields = ["symbol"]
+    default_sort = "symbol"
 
     def get_queryset(self):
         queryset = super().get_queryset()
