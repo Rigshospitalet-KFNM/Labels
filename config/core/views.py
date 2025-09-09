@@ -81,7 +81,8 @@ class ElementListView(SearchAndSortMixin, ListView):
         radioactive = self.request.GET.get("radioactive")
         if radioactive == "yes":
             queryset = queryset.filter(radioactive=True)
-        elif radioactive == "no":
+        else:
+        # Default: non-radioactive only
             queryset = queryset.filter(radioactive=False)
 
         symbol_len = self.request.GET.get("symbol_len")
@@ -91,3 +92,20 @@ class ElementListView(SearchAndSortMixin, ListView):
             queryset = queryset.annotate(symbol_length=Length("symbol")).filter(symbol_length__gte=3)
 
         return queryset
+
+class ElementCreateView(CreateView):
+    model = Element
+    fields = ["symbol", "radioactive"]
+    template_name = "elements/form.html"
+    success_url = reverse_lazy("element_list")
+
+class ElementUpdateView(UpdateView):
+    model = Element
+    fields = ["symbol", "radioactive"]
+    template_name = "elements/form.html"
+    success_url = reverse_lazy("element_list")
+
+class ElementDeleteView(DeleteView):
+    model = Element
+    template_name = "elements/confirm_delete.html"
+    success_url = reverse_lazy("element_list")

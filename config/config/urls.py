@@ -33,4 +33,7 @@ urlpatterns = [
     path("signatories/<int:pk>/edit/", views.SignatoryUpdateView.as_view(), name="signatory_edit"),
     path("signatories/<int:pk>/delete/", views.SignatoryDeleteView.as_view(), name="signatory_delete"),
     path("elements/", views.ElementListView.as_view(), name="element_list"),
+    path("elements/add/", views.ElementCreateView.as_view(), name="element_add"),
+    path("elements/<int:pk>/edit/", views.ElementUpdateView.as_view(), name="element_edit"),
+    path("elements/<int:pk>/delete/", views.ElementDeleteView.as_view(), name="element_delete"),
 ]
