@@ -53,16 +53,30 @@ class SignatoryCreateView(CreateView):
     template_name = "signatories/form.html"
     success_url = reverse_lazy("signatory_list")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Signatory added successfully ✅")
+        return super().form_valid(form) 
+
 class SignatoryUpdateView(UpdateView):
     model = Signatory
     fields = ["name", "initials"]
     template_name = "signatories/form.html"
     success_url = reverse_lazy("signatory_list")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Signatory updated successfully ✏️")
+        return super().form_valid(form)
+
 class SignatoryDeleteView(DeleteView):
     model = Signatory
     template_name = "signatories/confirm_delete.html"
     success_url = reverse_lazy("signatory_list")
+
+    def form_valid(self, form):
+        obj = self.get_object()
+        messages.success(self.request, f"Signatory '{obj.name}' deleted successfully 🗑️") # type: ignore
+        return super().form_valid(form) # type: ignore
+
 
 
 #Elements---
@@ -99,13 +113,26 @@ class ElementCreateView(CreateView):
     template_name = "elements/form.html"
     success_url = reverse_lazy("element_list")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Element added successfully ✅")
+        return super().form_valid(form) 
+
 class ElementUpdateView(UpdateView):
     model = Element
     fields = ["symbol", "radioactive"]
     template_name = "elements/form.html"
     success_url = reverse_lazy("element_list")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Element updated successfully ✏️")
+        return super().form_valid(form)
+
 class ElementDeleteView(DeleteView):
     model = Element
     template_name = "elements/confirm_delete.html"
     success_url = reverse_lazy("element_list")
+
+    def form_valid(self, form):
+        obj = self.get_object()
+        messages.success(self.request, f"Element '{obj.symbol}' deleted successfully 🗑️") # type: ignore
+        return super().form_valid(form) # type: ignore
