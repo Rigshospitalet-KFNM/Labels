@@ -11,6 +11,9 @@ class Signatory(models.Model):
 class Element(models.Model):
     symbol = models.CharField(max_length=50)
     radioactive = models.BooleanField(default=False)
+    batchnr = models.PositiveIntegerField(
+        default=0
+    ) ##should reset daily
 
     def __str__(self) -> str:
         return self.symbol
@@ -18,6 +21,7 @@ class Element(models.Model):
 class Component(models.Model):
     name = models.CharField(max_length=255)
     # Default value source
+    info_field = models.CharField(blank=True)
     tied_model = models.CharField(
         max_length=50,
         choices=[
