@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load sort_helpers %}
+
+{% block content %}
+  <h1>Components</h1>
+  <p class="subtext">OBS, Components are the drag-and-drop elements used in templates, and should generally be left alone, unless new attributes are added to an object.</p>
+  <!-- Search -->
+  <form method="get" class="search-sort-form">
+    <input type="text" name="q" placeholder="Search..."
+           value="{{ request.GET.q|default:'' }}">
+    <button type="submit" class="button button-primary">Apply</button>
+  </form>
+
+  <div class="spacer-small"></div>
+
+  <div class="listDiv">
+    <div class="list-header">
+      <span class="col-1">{% sort_link "name" "Name" %}</span>
+      <span class="col-2">{% sort_link "tied_model" "tied value" %}</span>
+      {% if user.is_authenticated %}
+          <span class="actions">Actions</span>
+      {% endif %}
+    </div>
+    <ul>
+      {% for component in components %}
+        <li>
+          <span class="col-1">{{ component.name }}</span>
+          <span class="col-2">{{ component.initials }}</span>
+          {% if user.is_authenticated %}
+            <span class="actions">
+              <a href="{% url 'component_edit' component.pk %}" class="button button-secondary">Edit</a>
+              <a href="{% url 'component_delete' component.pk %}" class="button button-secondary">Delete</a>
+            </span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="spacer-small"></div>
+  {% if user.is_authenticated %}
+    <a href="{% url 'component_add' %}" class="button button-primary">Add New Component</a>
+  {% endif %}
+{% endblock %}

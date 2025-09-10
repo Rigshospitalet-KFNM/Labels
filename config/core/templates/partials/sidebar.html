@@ -11,6 +11,7 @@
                         <li><a href="{% url 'template_overview' %}">Templates</a></li>
                         <li><a href="{% url 'signatory_list' %}">Signatories</a></li>
                         <li><a href="{% url 'element_list' %}">Elements</a></li>
+                        <li><a href="{% url 'component_list' %}">Components</a></li>
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'user_list' %}">Users</a></li>
                         {% endif %}

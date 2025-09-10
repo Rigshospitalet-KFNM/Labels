@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Delete {{ object.name }}?</h1>
+  
+  <form method="post" onsubmit="return confirmDelete();">
+    {% csrf_token %}
+    <button type="submit" class="button button-primary">Confirm</button>
+    <a href="{% url 'component_list' %}" class="button button-secondary">Cancel</a>
+  </form>
+
+  <script>
+    function confirmDelete() {
+      return confirm("WARNING! deleting a component, will delete all templates using it");
+    }
+  </script>
+{% endblock %}

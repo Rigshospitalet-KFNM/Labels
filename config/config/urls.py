@@ -42,4 +42,9 @@ urlpatterns = [
     path("users/<int:pk>/edit/", views.UserUpdateView.as_view(), name="user_edit"),
     path("users/<int:pk>/delete/", views.UserDeleteView.as_view(), name="user_delete"),
     path("users/password/", views.UserPasswordChangeView.as_view(), name="user_password_change"),
+    path("components/", views.ComponentListView.as_view(), name="component_list"),
+    path("components/add/", views.ComponentCreateView.as_view(), name="component_add"),
+    path("components/<int:pk>/edit/", views.ComponentUpdateView.as_view(), name="component_edit"),
+    path("components/<int:pk>/delete/", views.ComponentDeleteView.as_view(), name="component_delete"),
+
 ]

@@ -7,7 +7,7 @@ from .mixins import SearchAndSortMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import PasswordChangeView
-from .models import LabelTemplate, Signatory, Element
+from .models import Component, LabelTemplate, Signatory, Element
 from django.db.models.functions import Length
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -189,4 +189,44 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
 
     def form_valid(self, form):
         messages.success(self.request, "User deleted successfully 🗑️")
+        return super().form_valid(form) # type: ignore
+    
+#Components---
+
+class ComponentListView(SearchAndSortMixin, ListView):
+    model = Component
+    template_name = "components/list.html"
+    context_object_name = "components"
+    search_fields = ["name"]
+    sort_fields = ["name", "tied_model"]
+    default_sort = "name"
+
+class ComponentCreateView(CreateView):
+    model = Component
+    fields = ["name", "tied_model"]
+    template_name = "components/form.html"
+    success_url = reverse_lazy("component_list")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Component added successfully ✅")
+        return super().form_valid(form) 
+
+class ComponentUpdateView(UpdateView):
+    model = Component
+    fields = ["name"]
+    template_name = "components/form.html"
+    success_url = reverse_lazy("component_list")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Component updated successfully ✏️")
+        return super().form_valid(form)
+
+class ComponentDeleteView(DeleteView):
+    model = Component
+    template_name = "components/confirm_delete.html"
+    success_url = reverse_lazy("component_list")
+
+    def form_valid(self, form):
+        obj = self.get_object()
+        messages.success(self.request, f"Component '{obj.name}' deleted successfully 🗑️ !!Along with all templates using it!!") # type: ignore
         return super().form_valid(form) # type: ignore

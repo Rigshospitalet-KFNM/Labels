@@ -209,4 +209,4 @@ __marimo__/
 # Pytest
 .cache/
 .pytest_cache/
-config/core/migrations/0001_initial.py
+config/core/migrations/

@@ -15,10 +15,52 @@ class Element(models.Model):
     def __str__(self) -> str:
         return self.symbol
     
+class Component(models.Model):
+    name = models.CharField(max_length=255)
+    # Default value source
+    tied_model = models.CharField(
+        max_length=50,
+        choices=[
+            ("element", "Element"),
+            ("signatory", "Signatory"),
+            # Add more as needed
+        ],
+        blank=True,
+        null=True
+    )
+    tied_field = models.CharField(max_length=50, blank=True, null=True)
+    
+    # Add width (in characters) — editable in builder
+    width_chars = models.PositiveIntegerField(default=20, help_text="Max characters allowed")
+
+    def __str__(self):
+        return self.name
+    
 class LabelTemplate(models.Model):
     name = models.CharField(max_length=100)
+
+    # Reference components; if a component is deleted, delete template-component link
+    components = models.ManyToManyField(
+        Component,
+        through="TemplateComponent",
+        related_name="templates"
+    )
+
+
     def __str__(self) -> str:
         return super().__str__()
+    
+class TemplateComponent(models.Model):
+    template = models.ForeignKey(LabelTemplate, on_delete=models.CASCADE)
+    component = models.ForeignKey(Component, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        unique_together = ["template", "component"]
+
+    def __str__(self):
+        return f"{self.template.name} → {self.component.name}"
     
 
 class LabelSettings(models.Model):
