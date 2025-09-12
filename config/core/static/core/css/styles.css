@@ -35,14 +35,14 @@ html, body {
 .spacer-small{ height: 1rem;}
 
 /* Decorative Line */
-.verticalLine {
+.Line {
     position: relative;
     padding: 0.5em;
     background: transparent;
     margin-top: 1em;
 }
 
-.verticalLine::before {
+.Line::before {
     content: "";
     position: absolute;
     top: 0;
