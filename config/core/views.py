@@ -192,34 +192,45 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
         return super().form_valid(form) # type: ignore
     
 #Components---
-
 class ComponentListView(SearchAndSortMixin, ListView):
     model = Component
     template_name = "components/list.html"
     context_object_name = "components"
     search_fields = ["name"]
-    sort_fields = ["name", "tied_model"]
+    sort_fields = ["name", "type"]
     default_sort = "name"
 
 class ComponentCreateView(CreateView):
     model = Component
-    fields = ["name", "tied_model"]
+    fields = ["name", "tied_model", "info_text"]
     template_name = "components/form.html"
     success_url = reverse_lazy("component_list")
 
     def form_valid(self, form):
+        form.instance.type = Component.MODEL_FIELD  # Force type
         messages.success(self.request, "Component added successfully ✅")
-        return super().form_valid(form) 
+        return super().form_valid(form)
 
 class ComponentUpdateView(UpdateView):
     model = Component
-    fields = ["name"]
+    fields = ["name", "tied_model", "info_text"]
     template_name = "components/form.html"
     success_url = reverse_lazy("component_list")
 
+    def get_form_class(self):
+        form_class = super().get_form_class()
+        if self.object.protected:  # type: ignore
+            form_class.base_fields.pop("type", None) # type: ignore
+            form_class.base_fields.pop("tied_model", None) # type: ignore
+        return form_class
+
     def form_valid(self, form):
+        if self.object.protected and form.cleaned_data.get("type") != self.object.type: # type: ignore
+            messages.error(self.request, "Cannot change type of a protected component ❌")
+            return self.form_invalid(form)
         messages.success(self.request, "Component updated successfully ✏️")
         return super().form_valid(form)
+
 
 class ComponentDeleteView(DeleteView):
     model = Component
@@ -228,5 +239,7 @@ class ComponentDeleteView(DeleteView):
 
     def form_valid(self, form):
         obj = self.get_object()
+        if obj.type in Component.PROTECTED_TYPES: # type: ignore
+                raise ValueError(f"{obj.type} component cannot be deleted.") # type: ignore
         messages.success(self.request, f"Component '{obj.name}' deleted successfully 🗑️ !!Along with all templates using it!!") # type: ignore
         return super().form_valid(form) # type: ignore

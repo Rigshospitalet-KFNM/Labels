@@ -28,8 +28,10 @@
           <span class="col-2">{{ component.initials }}</span>
           {% if user.is_authenticated %}
             <span class="actions">
+            {% if component.type == "MODEL_FIELD" %}
               <a href="{% url 'component_edit' component.pk %}" class="button button-secondary">Edit</a>
               <a href="{% url 'component_delete' component.pk %}" class="button button-secondary">Delete</a>
+            {% endif %}
             </span>
           {% endif %}
         </li>

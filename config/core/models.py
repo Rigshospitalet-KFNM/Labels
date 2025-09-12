@@ -19,23 +19,37 @@ class Element(models.Model):
         return self.symbol
     
 class Component(models.Model):
-    name = models.CharField(max_length=255)
-    # Default value source
-    info_field = models.CharField(blank=True)
+    PROTECTED_TYPES = ["DATE", "BATCHNR", "TEXT"]
+    protected = models.BooleanField(default=False) 
+    
+    TEXT = "TEXT"
+    MODEL_FIELD = "MODEL_FIELD"
+    BATCHNR = "BATCHNR"
+    DATE = "DATE"
+
+ 
+    COMPONENT_TYPES = [
+        (TEXT, "Free text field"),
+        (MODEL_FIELD, "Tied to model field"),
+        (BATCHNR, "Batch number"),
+        (DATE, "Date field"),
+    ]
+    name = models.CharField(max_length=100)
+    type = models.CharField(max_length=20, choices=COMPONENT_TYPES, default=TEXT)
+
+    # For MODEL_FIELD type
     tied_model = models.CharField(
         max_length=50,
-        choices=[
-            ("element", "Element"),
-            ("signatory", "Signatory"),
-            # Add more as needed
-        ],
-        blank=True,
-        null=True
+        choices=[("element", "Element"), ("signatory", "Signatory")],
+        blank=True, null=True
     )
-    tied_field = models.CharField(max_length=50, blank=True, null=True)
-    
-    # Add width (in characters) — editable in builder
-    width_chars = models.PositiveIntegerField(default=20, help_text="Max characters allowed")
+    tied_field = models.CharField(max_length=100, blank=True, null=True)
+
+    # Optional static prefix/suffix/info text
+    info_text = models.CharField(max_length=200, blank=True, null=True)
+
+    # Layout control
+    width_chars = models.PositiveIntegerField(default=20)
 
     def __str__(self):
         return self.name
