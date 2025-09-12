@@ -32,6 +32,12 @@ Apply database migrations, to initalize schema:
 ```
 python manage.py migrate
 ```
+<br />
+Load the predefined protected components:
+
+```
+python manage.py loaddata components.json
+```
 
 <br />
 Run the development server:
