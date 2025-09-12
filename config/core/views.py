@@ -7,11 +7,12 @@ from .mixins import SearchAndSortMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import PasswordChangeView
-from .models import Component, LabelTemplate, Signatory, Element
 from django.db.models.functions import Length
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
+from .models import Component, LabelTemplate, Signatory, Element
+from .forms import ComponentForm
 
 def main_page(request):
     return render(request, 'core/main_page.html')
@@ -197,12 +198,12 @@ class ComponentListView(SearchAndSortMixin, ListView):
     template_name = "components/list.html"
     context_object_name = "components"
     search_fields = ["name"]
-    sort_fields = ["name", "type"]
+    sort_fields = ["name"]
     default_sort = "name"
 
 class ComponentCreateView(CreateView):
     model = Component
-    fields = ["name", "tied_model", "info_text"]
+    form_class = ComponentForm
     template_name = "components/form.html"
     success_url = reverse_lazy("component_list")
 
@@ -213,7 +214,7 @@ class ComponentCreateView(CreateView):
 
 class ComponentUpdateView(UpdateView):
     model = Component
-    fields = ["name", "tied_model", "info_text"]
+    form_class = ComponentForm
     template_name = "components/form.html"
     success_url = reverse_lazy("component_list")
 

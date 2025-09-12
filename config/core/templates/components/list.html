@@ -16,7 +16,8 @@
   <div class="listDiv">
     <div class="list-header">
       <span class="col-1">{% sort_link "name" "Name" %}</span>
-      <span class="col-2">{% sort_link "tied_model" "tied value" %}</span>
+      <span class="col-2"></span>
+      <span class="col-3"></span>
       {% if user.is_authenticated %}
           <span class="actions">Actions</span>
       {% endif %}
@@ -25,7 +26,14 @@
       {% for component in components %}
         <li>
           <span class="col-1">{{ component.name }}</span>
-          <span class="col-2">{{ component.initials }}</span>
+          {% if component.tied_model and component.tied_field %}
+            <span class="col-2">  
+                {{ component.tied_model }}:
+            </span>
+            <span class="col-3">  
+                {{ component.tied_field }}  
+            </span>
+          {% endif %}
           {% if user.is_authenticated %}
             <span class="actions">
             {% if component.type == "MODEL_FIELD" %}

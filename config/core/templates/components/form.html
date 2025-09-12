@@ -3,7 +3,63 @@
   <h1>{{ view.object|default:"New" }} Component</h1>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form.non_field_errors }}
+
+    <div>
+      {{ form.name.label_tag }} {{ form.name }}
+    </div>
+    <div>
+      {{ form.tied_model.label_tag }} {{ form.tied_model }}
+    </div>
+    <div id="tied-field-wrapper" style="display: none;">
+      {{ form.tied_field.label_tag }} {{ form.tied_field }}
+    </div>
+    <div>
+      {{ form.info_text.label_tag }} {{ form.info_text }}
+    </div>
+
     <button type="submit" class="button button-primary">Save</button>
   </form>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const tiedModelSelect = document.getElementById("id_tied_model");
+    const tiedFieldWrapper = document.getElementById("tied-field-wrapper");
+    const tiedFieldSelect = document.getElementById("id_tied_field");
+
+    const fieldOptions = {
+        element: [
+            {value: "symbol", text: "Symbol"},
+            {value: "name", text: "Name"},
+            {value: "radioactive", text: "Radioactive"},
+        ],
+        signatory: [
+            {value: "name", text: "Name"},
+            {value: "initials", text: "Initials"},
+        ]
+    };
+
+    function updateTiedFieldOptions(model) {
+        tiedFieldSelect.innerHTML = "";
+        if (fieldOptions[model]) {
+            tiedFieldWrapper.style.display = "block"; 
+            fieldOptions[model].forEach(opt => {
+                let option = document.createElement("option");
+                option.value = opt.value;
+                option.textContent = opt.text;
+                tiedFieldSelect.appendChild(option);
+            });
+        } else {
+            tiedFieldWrapper.style.display = "none"; 
+        }
+    }
+
+    tiedModelSelect.addEventListener("change", function() {
+        updateTiedFieldOptions(this.value);
+    });
+
+    // Initialize on load if editing
+    updateTiedFieldOptions(tiedModelSelect.value);
+});
+</script>
 {% endblock %}
