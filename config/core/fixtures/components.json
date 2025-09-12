@@ -1,0 +1,29 @@
+[
+  {
+    "model": "core.component",  
+    "pk": 1,
+    "fields": {
+      "name": "Date (auto)",
+      "type": "DATE",
+      "protected": true
+    }
+  },
+  {
+    "model": "core.component",
+    "pk": 2,
+    "fields": {
+      "name": "Batch Number",
+      "type": "BATCHNR",
+      "protected": true
+    }
+  },
+  {
+    "model": "core.component",
+    "pk": 3,
+    "fields": {
+      "name": "Free Textfield",
+      "type": "TEXT",
+      "protected": true
+    }
+  }
+]
